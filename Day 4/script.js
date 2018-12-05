@@ -24,7 +24,6 @@ const guardFinder = (input) => {
     }
   })
   let most = guards.reduce((prev, curr) => {
-    hash = guards.indexOf(prev)
     if (prev.time > curr.time) {
       hash = guards.indexOf(prev)
       return prev;
@@ -44,4 +43,38 @@ const guardFinder = (input) => {
   return hash * mostKey;
 }
 
-console.log(guardFinder(input3))
+const mostFreqMin = input => {
+  let guards = [];
+  let sleep = 0;
+  let wake = 0;
+  let hash = '';
+  input.forEach(str => {
+    if (str.includes("#")) {
+      hash = str.slice(str.indexOf("#")).match(/#(\d+)/)[1];
+    } else if (str.includes("asleep")) {
+      sleep = Number(str[15] + str[16]);
+    } else if (str.includes("wakes")) {
+      wake = Number(str[15] + str[16]);
+      if (!guards[hash]) guards[hash] = {};
+      for (let i = sleep; i < wake; i++) {
+        if (!guards[hash][i]) guards[hash][i] = 0;
+        guards[hash][i]++
+      };
+    }
+  })
+  let mostTop = 0;
+  let mostKey = '';
+  guards.forEach(guard => {
+    Object.entries(guard).forEach(([key, value]) => {
+      if (value > mostTop) {
+        mostTop = value;
+        mostKey = key;
+        hash = guards.indexOf(guard)
+      }
+    });
+  })
+  return hash * Number(mostKey)
+}
+
+console.log(guardFinder(input3))  
+console.log(mostFreqMin(input3))  
