@@ -24,14 +24,24 @@ const guardFinder = (input) => {
     }
   })
   let most = guards.reduce((prev, curr) => {
-    return (prev.time > curr.time) ? prev : curr;
+    hash = guards.indexOf(prev)
+    if (prev.time > curr.time) {
+      hash = guards.indexOf(prev)
+      return prev;
+    } else {
+      hash = guards.indexOf(curr)
+      return curr;
+    }
   })
   let mostTop = 0;
+  let mostKey = '';
   Object.entries(most).forEach(([key, value]) => {
-    if (value > mostTop && key !== 'time') mostTop = value;
+    if (value > mostTop && key !== 'time') {
+      mostTop = value;
+      mostKey = Number(key);
+    }
   });
-  console.log(mostTop, most)
-  return guards
+  return hash * mostKey;
 }
 
-console.log(guardFinder(input3), input3)
+console.log(guardFinder(input3))

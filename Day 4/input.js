@@ -1161,7 +1161,7 @@ const input4 = `[1518-11-01 00:00] Guard #10 begins shift
 [1518-11-05 00:45] falls asleep
 [1518-11-05 00:55] wakes up`
 
-const input2 = input4.replace(/\r?\n|\n/g, '  ').split('  ');
+const input2 = input.replace(/\r?\n|\n/g, '  ').split('  ');
 export const input3 = input2.sort((a, b) => {
   let x = a[6] + a[7];
   let y = b[6] + b[7];
